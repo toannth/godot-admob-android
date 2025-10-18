@@ -26,34 +26,25 @@ import android.os.Bundle
 import android.util.Log
 import com.poingstudios.godot.admob.core.AdNetworkExtras
 import com.poingstudios.godot.admob.core.utils.LogUtils
-import com.vungle.mediation.VungleExtrasBuilder
+import com.google.ads.mediation.vungle.VungleConstants
 import kotlin.Any
 import kotlin.String
 
 abstract class VunglePoingExtrasBuilder : AdNetworkExtras {
-    private val ALL_PLACEMENTS_KEY = "ALL_PLACEMENTS_KEY"
-    private val USER_ID_KEY = "USER_ID_KEY"
-    private val SOUND_ENABLED_KEY = "SOUND_ENABLED_KEY"
 
     override fun buildExtras(extras: Map<String, Any>?): Bundle? {
-        val placements = extras?.get(ALL_PLACEMENTS_KEY)
-
-        val extrasBuilder = if (placements != null) {
-            VungleExtrasBuilder((placements as String).split(",").toTypedArray())
-        } else {
-            VungleExtrasBuilder(null)
-        }
-
-        val soundEnabled = extras?.get(SOUND_ENABLED_KEY)
-        if (soundEnabled != null) {
-            extrasBuilder.setStartMuted(soundEnabled as Boolean)
-        }
-
-        val userId = extras?.get(USER_ID_KEY)
+        val extras = Bundle()
+        
+        val userId = extras?.get(VungleConstants.KEY_USER_ID)
         if (userId != null) {
-            extrasBuilder.setUserId(userId as String)
+            extras.putString(VungleConstants.KEY_USER_ID, userId as String)
         }
 
-        return extrasBuilder.build()
+        val adOrientation = extras?.get(VungleConstants.KEY_ORIENTATION)
+        if (adOrientation != null) {
+            extras.putInt(VungleConstants.KEY_ORIENTATION, adOrientation as Int)
+        }
+
+        return extras
     }
 }

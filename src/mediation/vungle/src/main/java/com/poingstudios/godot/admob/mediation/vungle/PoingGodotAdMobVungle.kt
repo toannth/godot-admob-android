@@ -22,7 +22,7 @@
 
 package com.poingstudios.godot.admob.mediation.vungle
 
-import com.vungle.warren.Vungle
+import com.vungle.ads.VunglePrivacySettings
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.UsedByGodot
 
@@ -33,11 +33,11 @@ class PoingGodotAdMobVungle(godot: Godot?) : org.godotengine.godot.plugin.GodotP
 
     @UsedByGodot
     fun update_consent_status(status : Int, consentMessageVersion : String) {
-        Vungle.updateConsentStatus(enumValues<Vungle.Consent>()[status], consentMessageVersion)
+        VunglePrivacySettings.setGDPRStatus(status == 0, consentMessageVersion)
     }
 
     @UsedByGodot
     fun update_ccpa_status(status : Int) {
-        Vungle.updateCCPAStatus(enumValues<Vungle.Consent>()[status])
+        VunglePrivacySettings.setCCPAStatus(status == 0)
     }
 }

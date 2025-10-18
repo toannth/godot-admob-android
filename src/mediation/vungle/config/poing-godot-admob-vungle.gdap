@@ -6,4 +6,4 @@ binary="poing-godot-admob-libs/poing-godot-admob-vungle-v1.0.0-release.aar"
 
 [dependencies]
 
-remote=["com.google.ads.mediation:vungle:6.12.1.1"]
+remote=["com.google.ads.mediation:vungle:7.5.1.0"]
